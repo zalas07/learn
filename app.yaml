@@ -1,0 +1,9 @@
+runtime: nodejs
+service: nodejsapp
+
+
+  env_variables:
+     MYSQL_USER: [nama_pengguna_database]
+     MYSQL_PASSWORD: [kata_sandi_database]
+     MYSQL_DATABASE: [nama_database]
+     MYSQL_HOST: [nama_host_database]
