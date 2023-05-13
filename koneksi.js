@@ -1,4 +1,6 @@
+const express = require('express');
 const mysql = require('mysql');
+const app = express();
 
 //buat koneksi database pada applikasi
 const db =mysql.createConnection({
