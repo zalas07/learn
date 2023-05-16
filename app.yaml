@@ -3,7 +3,7 @@ service: nodejsapp
 
 
   env_variables:
-     MYSQL_USER: [nama_pengguna_database]
-     MYSQL_PASSWORD: [kata_sandi_database]
-     MYSQL_DATABASE: [nama_database]
-     MYSQL_HOST: [nama_host_database]
+     MYSQL_USER: root
+     MYSQL_PASSWORD: bigdick
+     MYSQL_DATABASE: mahasiswa
+     MYSQL_HOST: 35.232.205.225

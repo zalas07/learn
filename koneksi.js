@@ -6,7 +6,7 @@ const app = express();
 const db =mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'bigdick',
+    password : '',
     database : 'mahasiswa'
 });
 
@@ -19,7 +19,7 @@ db.connect((err) =>{
 });
 
 app.get('/', (req, res) => {
-    db.query('SELECT * FROM <YOUR_TABLE_NAME>', (err, results) => {
+    db.query('SELECT * FROM mahasiswa', (err, results) => {
       if (err) {
         res.send(err);
       } else {

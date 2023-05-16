@@ -51,19 +51,19 @@ exports.tambahmahasiswa = function (req, res) {
 };
 
 //mengubah data berdasarka id
-exports.editmahasiswa = function (re, res) {
+exports.editmahasiswa = function (req, res) {
     var id = req.body.id_mahasiswa;
     var nim = req.body.nim;
     var nama = req.body.nama;
     var jurusan = req.body.jurusan;
 
-    connection.query('UPDATE mahasiswa SET nim=?, nama=?, jurusan=? WHERE id_mahasiswa=?', [nim, nama, jurusan],
+    connection.query('UPDATE mahasiswa SET nim=?, nama=?, jurusan=?', [nim, nama, jurusan],
 
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                response.ok("Berhasil Mengubah data mahasiswa");
+                response.ok("Berhasil Mengubah data mahasiswa",res);
             }
         });
 };
@@ -73,8 +73,8 @@ exports.editmahasiswa = function (re, res) {
 exports.hapusmahasiswa = function (req, res) {
     var id = req.body.id_mahasiswa;
 
-    connection.query('DELETE FROM mahasiswa WHERE id_mahasisawa=?', [id],
-        function (eror, rows, field) {
+    connection.query('DELETE FROM mahasiswa WHERE id_mahasiswa=?', [id],
+        function (error, rows, field) {
             if (error) {
                 console.log(error);
             } else {
