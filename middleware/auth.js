@@ -15,6 +15,7 @@ exports.registrasi = function (req, res) {
         username: req.body.username,
         email: req.body.email,
         password: md5(req.body.password),
+        role: req.body.role,
         tanggal_daftar: new Date()
     }
 
@@ -31,7 +32,7 @@ exports.registrasi = function (req, res) {
                 var query = "INSERT INTO ?? SET ?";
                 var table = ["user"];
                 query = mysql.format(query, table);
-                connection.query(query, post, function (eror, rows) {
+                connection.query(query, post, function (error, rows) {
                     if (error) {
                         console.log(error);
                     } else {
@@ -45,20 +46,12 @@ exports.registrasi = function (req, res) {
     });
 }
 
-//controller unttuk login
-exports.login = function (req, res) {
-    var post = {
-        password: req.body.password,
-        email: req.body.email
-    }
-    var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
-    var table = ["user", "password",]
-}
+
 //controller untuk login
 exports.login = function (req, res) {
     var post = {
         password: req.body.password,
-        email: req.body.email,
+        email: req.body.email
     }
     var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
     var table = ["user", "password", md5(post.password), "email", post.email];
@@ -68,6 +61,7 @@ exports.login = function (req, res) {
         if (error) {
             console.log(error);
         } else {
+            console.log(rows.length);
             if (rows.length == 1) {
                 var token = jwt.sign({ rows }, config.secret, {
                     expiresIn: 1440 //20 menit
@@ -76,7 +70,7 @@ exports.login = function (req, res) {
 
                 var data = {
                     id_user: id_user,
-                    access_token: token,
+                    akses_token: token, // di ganti namanya dari access ke akses
                     ip_address: ip.address()
                 }
                 var query = "INSERT INTO ?? SET ?";

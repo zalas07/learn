@@ -1,5 +1,5 @@
 runtime: nodejs
-service: nodejsapp
+service: login
 
 
   env_variables:
@@ -7,3 +7,4 @@ service: nodejsapp
      MYSQL_PASSWORD: bigdick
      MYSQL_DATABASE: mahasiswa
      MYSQL_HOST: 35.232.205.225
+     
