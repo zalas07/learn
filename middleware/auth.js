@@ -5,7 +5,7 @@ var response = require('../rest')
 var jwt = require('jsonwebtoken');
 var config = require('../config/secret');
 var ip = require('ip');
-const { post } = require('.');
+const { query } = require('express');
 
 //controller untuk register
 
@@ -21,7 +21,7 @@ exports.registrasi = function (req, res) {
     var query = "SELECT email FROM ?? WHERE  ??=?";
     var table = ["user", "email", post.email];
 
-    query = mysql.format(query, table)
+    query = mysql.format(query, table);
 
     connection.query(query, function (error, rows) {
         if (error) {
@@ -46,15 +46,20 @@ exports.registrasi = function (req, res) {
 }
 
 //controller unttuk login
-
 exports.login = function (req, res) {
-
     var post = {
         password: req.body.password,
         email: req.body.email
     }
-
-
+    var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
+    var table = ["user", "password",]
+}
+//controller untuk login
+exports.login = function (req, res) {
+    var post = {
+        password: req.body.password,
+        email: req.body.email,
+    }
     var query = "SELECT * FROM ?? WHERE ??=? AND ??=?";
     var table = ["user", "password", md5(post.password), "email", post.email];
 
@@ -65,7 +70,7 @@ exports.login = function (req, res) {
         } else {
             if (rows.length == 1) {
                 var token = jwt.sign({ rows }, config.secret, {
-                    expiresIn: 1440 // 20 menit
+                    expiresIn: 1440 //20 menit
                 });
                 id_user = rows[0].id;
 
@@ -74,7 +79,6 @@ exports.login = function (req, res) {
                     access_token: token,
                     ip_address: ip.address()
                 }
-
                 var query = "INSERT INTO ?? SET ?";
                 var table = ["akses_token"];
 
@@ -85,23 +89,19 @@ exports.login = function (req, res) {
                     } else {
                         res.json({
                             success: true,
-                            message: "Token JWT tergenerate!",
+                            message: 'Token JWT tergenerate',
                             token: token,
                             currUser: data.id_user
-
                         });
                     }
                 });
             } else {
-                res.json({ "Error": true, "Message": "Email atau passwordnya salah!" });
-
+                res.json({ "Error": true, "Message": "Email atau password salah!" })
             }
         }
     });
-
-
 }
 
-exports.halamanlog = function(req,res){
+exports.halamanlog = function (req, res) {
     response.ok("Halaman ini hanya untuk user terotorisasi", res);
 }
